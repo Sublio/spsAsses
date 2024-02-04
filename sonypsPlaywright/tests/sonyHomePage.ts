@@ -26,11 +26,17 @@ export class SonyHomePage {
   }
 
   async clickMySonyLink(): Promise<void> {
-    const mySonyLink: ElementHandle | null = await this.page.$('a[href="https://www.sony.co.uk/mysony/login?returnUri=https://www.sony.co.uk/"]');
-    if (mySonyLink) {
-      await mySonyLink.click();
-    } else {
-      throw new Error('My Sony link not found');
+    try {
+      const signInButton = await this.page.waitForSelector('a.GlobalHeaderCrm__SignUpButton', { state: 'visible' });
+      
+      if (signInButton) {
+        await signInButton.click();
+      } else {
+        throw new Error('Sign-In button not found');
+      }
+    } catch (error) {
+      console.error('Error while clicking My Sony link:', error);
+      throw error; // Re-throw the error for further handling in your test script
     }
   }
 }
