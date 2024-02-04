@@ -1,18 +1,25 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+// Define a global variable to store the page instance
+let page: Page;
+let url: string = "https://www.sony.co.uk"
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+test.beforeEach(async ({ browser }) => {
+  const context = await browser.newContext();
+  page = await context.newPage();
+  
+  // Open the desired URL before each test
+  await page.goto(url);
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.afterEach(async () => {
+  await page.close();
+});
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+test('has title', async () => {
+  await expect(page).toHaveTitle(/Sony/);
+});
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+test('example test', async () => {
+    console.log("Test")
 });
