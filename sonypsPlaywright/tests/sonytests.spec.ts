@@ -1,15 +1,16 @@
 import { test, expect, Page } from '@playwright/test';
+import { SonyHomePage } from './sonyHomePage';
 
-// Define a global variable to store the page instance
 let page: Page;
-let url: string = "https://www.sony.co.uk"
+let sonyHomePage: SonyHomePage;
 
 test.beforeEach(async ({ browser }) => {
   const context = await browser.newContext();
   page = await context.newPage();
-  
-  // Open the desired URL before each test
-  await page.goto(url);
+  sonyHomePage = new SonyHomePage(page);
+  await sonyHomePage.open();
+  await sonyHomePage.clickMySonyIcon();
+  await sonyHomePage.clickMySonyLink();
 });
 
 test.afterEach(async () => {
@@ -17,9 +18,10 @@ test.afterEach(async () => {
 });
 
 test('has title', async () => {
-  await expect(page).toHaveTitle(/Sony/);
+  const title = await sonyHomePage.getTitle();
+  await expect(title).toMatch(/Sony/);
 });
 
 test('example test', async () => {
-    console.log("Test")
+  console.log("Test");
 });
