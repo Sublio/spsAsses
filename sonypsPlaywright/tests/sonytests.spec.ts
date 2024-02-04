@@ -60,5 +60,14 @@ test('Carousel switch cell selection automatically after time constant', async (
   }
 });
 
+test('carousel cell selection and central div', async ({ page }) => {
+  const cellIndex = 3;
 
+  await carouselPage.clickCarouselItem(cellIndex);
+
+  await page.waitForTimeout(1000); //Small timeout to wait for animation
+
+  const isContentVisible = await carouselPage.isCellVisible(cellIndex);
+  expect(isContentVisible).toBeTruthy();
+});
 

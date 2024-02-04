@@ -29,5 +29,15 @@ export class CarouselPage {
     const itemLocator = `${this.carouselLocator} > div.slider__control.carousel-cell:nth-child(${index + 1})`;
     return await this.page.$(itemLocator);
   }
+
+  async getCarouselCells(): Promise<ElementHandle[]> {
+    return await this.page.$$('div.slider__slides > div.slider__slide');
+  }
+
+  async isCellVisible(index: number): Promise<boolean> {
+    const cells = await this.getCarouselCells();
+    const cellClass = await cells[index].getAttribute('class');
+    return !cellClass!.includes('display--hidden');
+  }
 }
 
