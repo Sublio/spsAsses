@@ -27,7 +27,7 @@ export default defineConfig({
         viewport: { width: 1920, height: 1080 },
         channel: 'chrome',
         contextOptions: {
-          javaScriptEnabled: true, // Enable JavaScript
+          javaScriptEnabled: true,
         },
       },
     },
@@ -37,7 +37,7 @@ export default defineConfig({
         ...devices['Desktop Firefox'],
         viewport: { width: 1920, height: 1080 },
         contextOptions: {
-          javaScriptEnabled: true, // Enable JavaScript
+          javaScriptEnabled: true,
         },
       },
     },
@@ -47,7 +47,7 @@ export default defineConfig({
         ...devices['Desktop Safari'],
         viewport: { width: 1920, height: 1080 },
         contextOptions: {
-          javaScriptEnabled: true, // Enable JavaScript
+          javaScriptEnabled: true,
         },
       },
     },
